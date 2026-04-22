@@ -2,7 +2,7 @@
   "name": "copy-code-fragment-ln",
   "displayName": "Copy Code Fragment LN",
   "description": "Copy the relative file path and selected line ranges from the active editor.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "Dklns",
   "author": "Dklns",
   "license": "MIT",
@@ -41,7 +41,7 @@
     "commands": [
       {
         "command": "copyCodeFragmentLn.copyLocation",
-        "title": "复制代码片段定位",
+        "title": "复制代码片段定位 (Copy Code Fragment Location)",
         "category": "Copy Code Fragment LN"
       }
     ],

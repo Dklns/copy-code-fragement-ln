@@ -1,29 +1,63 @@
 # Copy Code Fragment LN
 
-Copy the current file's relative path together with the selected line ranges in VS Code.
+这是一个 VS Code 插件，用来复制当前文件的相对路径和选中代码的行号范围。
 
-## Features
+## 功能
 
-- Adds an editor context menu command: `复制代码片段定位`
-- Adds a default shortcut: `Ctrl+Shift+C`
-- Copies a single selection as `src/foo.ts:12-18`
-- Copies multiple selections as `src/foo.ts: 12-18 20-21 30-35`
+- 在编辑器右键菜单中提供 `复制代码片段定位`
+- 默认快捷键：
+  - Windows / Linux：`Ctrl+Shift+C`
+  - macOS：`Cmd+Shift+C`
+- 单选区复制结果示例：`src/foo.ts:12-18`
+- 多选区复制结果示例：`src/foo.ts: 12-18 20-21 30-35`
 
-## Behavior
+## 行为规则
 
-- The copied path is relative to the workspace root.
-- The command is available only when the active text editor has a selection.
-- Only local files inside the current workspace are supported.
-- Line numbers are 1-based.
+- 复制的路径相对于当前工作区根目录
+- 仅在编辑器存在选区时显示右键菜单并允许快捷键触发
+- 仅支持当前工作区中的本地文件
+- 行号从 `1` 开始计数
 
-## Usage
+## 使用方法
 
-1. Open a file inside a VS Code workspace.
-2. Select one or more code fragments.
-3. Right-click and choose `复制代码片段定位`, or press `Ctrl+Shift+C`.
-4. Paste the generated location string anywhere you need.
+1. 在 VS Code 工作区中打开一个文件
+2. 选中一段或多段代码
+3. 右键选择 `复制代码片段定位`，或直接按默认快捷键
+4. 粘贴即可得到格式化后的定位字符串
 
-## Development
+## 自定义快捷键
+
+本插件保留了默认快捷键，但你可以使用 VS Code 的标准方式重新绑定。
+
+### 方式一：在快捷键面板中修改
+
+1. 打开 VS Code 命令面板
+2. 执行 `Preferences: Open Keyboard Shortcuts`
+3. 搜索以下任一关键词：
+   - `复制代码片段定位`
+   - `Copy Code Fragment Location`
+   - `copyCodeFragmentLn.copyLocation`
+4. 找到命令后点击修改快捷键即可
+
+### 方式二：直接编辑 `keybindings.json`
+
+可以在 `keybindings.json` 中加入如下配置：
+
+```json
+{
+  "key": "ctrl+alt+y",
+  "command": "copyCodeFragmentLn.copyLocation",
+  "when": "editorTextFocus && editorHasSelection && resourceScheme == file"
+}
+```
+
+说明：
+
+- `key` 可以换成你自己的组合键
+- `when` 建议保留，这样命令只会在编辑器聚焦且存在选区时生效
+- 用户自定义绑定会覆盖插件提供的默认快捷键
+
+## 本地开发
 
 ```bash
 npm install
@@ -31,15 +65,15 @@ npm test
 npm run package
 ```
 
-Press `F5` in VS Code to launch an Extension Development Host.
+在 VS Code 中按 `F5` 可启动 Extension Development Host 进行调试。
 
-## Project Structure
+## 项目结构
 
-- `src/extension.ts`: extension entry point and command registration
-- `src/command.ts`: command execution and clipboard writing
-- `src/format.ts`: selection and line-range formatting logic
-- `src/test`: unit and integration tests
+- `src/extension.ts`：扩展入口和命令注册
+- `src/command.ts`：命令执行和剪贴板写入
+- `src/format.ts`：选区与行号范围格式化逻辑
+- `src/test`：单元测试和扩展集成测试
 
-## Release Notes
+## 发布说明
 
-See [CHANGELOG.md](./CHANGELOG.md).
+变更历史见 [CHANGELOG.md](./CHANGELOG.md)。
