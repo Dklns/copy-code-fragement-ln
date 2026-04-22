@@ -1,0 +1,6 @@
+src/**
+docs/**
+logs/**
+tsconfig.json
+**/*.ts
+**/*.map
